@@ -54,7 +54,7 @@ public class UserServiceImpl implements UserService {
 					}
 
 					Map<String, Object> resultMap = new HashMap<>();
-					resultMap.put("userName", verificationUser);
+					resultMap.put("user", verificationUser);
 					resultMap.put("token", token);
 
 					//放入redis
