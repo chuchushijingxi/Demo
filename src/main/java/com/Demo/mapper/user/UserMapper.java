@@ -1,7 +1,7 @@
 package com.Demo.mapper.user;
 
+import com.Demo.pojo.example.Example;
 import com.Demo.pojo.user.User;
-import com.Demo.pojo.example.UserExample;
 
 import java.util.List;
 
@@ -10,9 +10,9 @@ import org.apache.ibatis.annotations.Param;
 
 @Mapper
 public interface UserMapper {
-	int countByExample(UserExample example);
+	int countByExample(Example example);
 
-	int deleteByExample(UserExample example);
+	int deleteByExample(Example example);
 
 	int deleteByPrimaryKey(Integer id);
 
@@ -20,13 +20,13 @@ public interface UserMapper {
 
 	int insertSelective(User record);
 
-	List<User> selectByExample(UserExample example);
+	List<User> selectByExample(Example example);
 
 	User selectByPrimaryKey(Integer id);
 
-	int updateByExampleSelective(@Param("record") User record, @Param("example") UserExample example);
+	int updateByExampleSelective(@Param("record") User record, @Param("example") Example example);
 
-	int updateByExample(@Param("record") User record, @Param("example") UserExample example);
+	int updateByExample(@Param("record") User record, @Param("example") Example example);
 
 	int updateByPrimaryKeySelective(User record);
 
