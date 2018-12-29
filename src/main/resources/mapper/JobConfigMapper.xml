@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.mapper.quartz.JobConfigMapper">
+    <resultMap id="baseMap" type="com.example.pojo.quartz.JobConfig">
+        <id column="sID" property="ID" jdbcType="NVARCHAR"/>
+        <result column="sThirdID" property="thirdID" jdbcType="NVARCHAR"/>
+        <result column="sName" property="name" jdbcType="NVARCHAR"/>
+        <result column="sDesc" property="desc" jdbcType="NVARCHAR"/>
+        <result column="sFullEntity" property="fullEntity" jdbcType="NVARCHAR"/>
+        <result column="sGroupName" property="groupName" jdbcType="NVARCHAR"/>
+        <result column="sCronTime" property="cronTime" jdbcType="NVARCHAR"/>
+        <result column="dLastTime" property="lastTime" jdbcType="TIMESTAMP"/>
+        <result column="nLastNumber" property="lastNumber" jdbcType="BIGINT"/>
+        <result column="sStatusID" property="statusID" jdbcType="NVARCHAR"/>
+        <result column="dCreateTime" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="sCreateUser" property="createUser" jdbcType="NVARCHAR"/>
+        <result column="dLastUpdateTime" property="lastUpdateTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="baseColumns">
+  		${alias}.sID, ${alias}.sThirdID, ${alias}.sName, ${alias}.sDesc,
+  		${alias}.sFullEntity, ${alias}.sGroupName, ${alias}.sCronTime, ${alias}.dLastTime,
+  		${alias}.nLastNumber, ${alias}.sStatusID, ${alias}.dCreateTime, ${alias}.sCreateUser,
+  		${alias}.dLastUpdateTime
+  	</sql>
+
+    <select id="getJobsByStatus" parameterType="String" resultMap="baseMap">
+        select
+        <include refid="baseColumns">
+            <property name="alias" value="jc"/>
+        </include>
+        from tJobConfig as jc
+        where jc.sStatusID = #{statusID}
+        order by jc.sID
+    </select>
+
+    <select id="getJobsByPrimaryKey" parameterType="String" resultMap="baseMap">
+        select
+        <include refid="baseColumns">
+            <property name="alias" value="jc"/>
+        </include>
+        from tJobConfig as jc
+        where jc.sID = #{ID}
+    </select>
+
+    <select id="getJobConfigByThirdID" resultMap="baseMap">
+        select
+        <include refid="baseColumns">
+            <property name="alias" value="jc"/>
+        </include>
+        from tJobConfig as jc
+        where jc.sThirdID = #{thirdID}
+        order by jc.sID
+    </select>
+
+    <update id="updateLastTime">
+  		update tJobConfig
+  		set dLastTime = #{lastTime},
+  			dLastUpdateTime = #{lastTime}
+  		where sID = #{ID}
+  	</update>
+
+    <update id="updateStatus">
+  		update tJobConfig
+  		set sStatusID = #{statusID},
+  			dLastUpdateTime = NOW()
+  		where sID = #{ID}
+  	</update>
+
+    <update id="updateCronTime">
+  		update tJobConfig
+  		set sCronTime = #{cronTime},
+  			dLastUpdateTime = NOW()
+  		where sID = #{ID}
+  	</update>
+
+    <insert id="insert" parameterType="com.example.pojo.quartz.JobConfig">
+     insert into tJobConfig (sID, sThirdID,
+                             sName, sDesc,sFullEntity,sGroupName,sCronTime,dLastTime,nLastNumber,sStatusID,dCreateTime,sCreateUser,dLastUpdateTime)
+     values (#{ID},#{thirdID},#{name},#{desc},#{fullEntity},#{groupName},#{cronTime},#{lastTime},#{lastNumber},#{statusID},#{createTime},#{createUser},#{lastUpdateTime})
+	</insert>
+
+    <!--修改任务的状态-->
+    <update id="updateStatusByID" parameterType="java.lang.String">
+		update tJobConfig
+        set sStatusID = #{statusID}
+        where sID = #{id}
+	</update>
+
+    <!--修改cron表达式-->
+    <update id="updateCronByID">
+     update tJobConfig
+     set sCronTime = #{cronTime}
+     where sID = #{id}
+	</update>
+</mapper>

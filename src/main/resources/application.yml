@@ -1,0 +1,38 @@
+spring:
+  datasource:
+    url: jdbc:mysql://45.77.134.105:3306/mySelf?characterEncoding=utf-8
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.jdbc.Driver
+  mvc:
+    view:
+      suffix: .jsp
+      prefix: /WEB-INF/jsp/
+  jedis:
+    pool:
+      maxTotal: 3000
+      maxWaitMillis: 1500
+      maxIdle: 1000
+      testOnBorrow: false
+      testOnReturn: true
+  redis:
+    password: z240114434
+    port: 6379
+    ip: 127.0.0.1
+
+mybatis:
+  type-aliases-package: com.zmqy.mapper
+  mapper-locations: classpath:mapper/**/*.xml
+
+audience:
+  sub: test
+  base64Secret: MDk4ZjZiY2Q0NjIxZDM3M2NhZGU0ZTgzMjYyN2I0ZjY=
+  iss: zmqy
+  time: 1800000000
+  expiresSecond: 604800000
+
+server:
+  tomcat:
+    uri-encoding: UTF-8
+  port: 8888
+
