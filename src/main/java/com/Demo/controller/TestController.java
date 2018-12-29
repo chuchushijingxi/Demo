@@ -1,7 +1,7 @@
 package com.Demo.controller;
 
 import com.Demo.pojo.Result;
-import com.Demo.util.comm.ResultComm;
+import com.Demo.util.comm.ResultUtil;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,6 +18,6 @@ public class TestController {
 
 	@RequestMapping("/test")
 	public Result test() {
-		return ResultComm.success();
+		return ResultUtil.success();
 	}
 }

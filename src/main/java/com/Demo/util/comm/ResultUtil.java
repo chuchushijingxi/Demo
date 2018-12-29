@@ -9,7 +9,7 @@ import com.Demo.pojo.Result;
  * @author: zlf
  * @create: 2018-12-14 17:53
  **/
-public class ResultComm {
+public class ResultUtil {
 
 	/**
 	 * 设置参数返回

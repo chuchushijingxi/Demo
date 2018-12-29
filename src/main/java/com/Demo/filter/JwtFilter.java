@@ -8,7 +8,7 @@ import com.Demo.mapper.user.UserMapper;
 import com.Demo.pojo.Result;
 import com.Demo.pojo.jwt.Audience;
 import com.Demo.pojo.user.User;
-import com.Demo.util.comm.ResultComm;
+import com.Demo.util.comm.ResultUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,7 +67,7 @@ public class JwtFilter extends GenericFilterBean {
 
 		//判断是否有bearer为前缀的信息
 		if (authHeader == null || !authHeader.startsWith("bearer ")) {
-			result = ResultComm.error(TokenJwt.TOKEN_FORMAT_ERROR.getCode(), TokenJwt.TOKEN_FORMAT_ERROR.getMsg());
+			result = ResultUtil.error(TokenJwt.TOKEN_FORMAT_ERROR.getCode(), TokenJwt.TOKEN_FORMAT_ERROR.getMsg());
 		} else {
 			final String token = authHeader.substring(7);
 
@@ -92,13 +92,13 @@ public class JwtFilter extends GenericFilterBean {
 				Claim exp = stringClaimMap.get("exp");
 
 				if (exp.asDate().getTime() < now) {
-					result = ResultComm.error(TokenJwt.TOKEN_EXPIRED_ERROR.getCode(), TokenJwt.TOKEN_EXPIRED_ERROR.getMsg());
+					result = ResultUtil.error(TokenJwt.TOKEN_EXPIRED_ERROR.getCode(), TokenJwt.TOKEN_EXPIRED_ERROR.getMsg());
 				} else {
 					filterChain.doFilter(servletRequest, servletResponse);
 					return;
 				}
 			} else {
-				result = ResultComm.error(TokenJwt.TOKEN_NOT_FOUND.getCode(), TokenJwt.TOKEN_NOT_FOUND.getMsg());
+				result = ResultUtil.error(TokenJwt.TOKEN_NOT_FOUND.getCode(), TokenJwt.TOKEN_NOT_FOUND.getMsg());
 			}
 		}
 		servletResponse.setCharacterEncoding("utf-8");

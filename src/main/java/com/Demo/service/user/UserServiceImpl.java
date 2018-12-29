@@ -6,7 +6,7 @@ import com.Demo.constant.Constant;
 import com.Demo.mapper.user.UserMapper;
 import com.Demo.pojo.Result;
 import com.Demo.pojo.user.User;
-import com.Demo.util.comm.ResultComm;
+import com.Demo.util.comm.ResultUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -68,15 +68,15 @@ public class UserServiceImpl implements UserService {
 					jedis.set(id + "", token);
 					MyJedisPool.recycleJedisOjbect(jedis);*/
 
-					return ResultComm.success(resultMap);
+					return ResultUtil.success(resultMap);
 				} else {
-					return ResultComm.error("用户已被禁用");
+					return ResultUtil.error("用户已被禁用");
 				}
 			} else {
-				return ResultComm.error("用户密码不正确");
+				return ResultUtil.error("用户密码不正确");
 			}
 		} else {
-			return ResultComm.error("该用户不存在");
+			return ResultUtil.error("该用户不存在");
 		}
 	}
 
@@ -87,19 +87,19 @@ public class UserServiceImpl implements UserService {
 		String password = user.getPassword();
 
 		if (StringUtils.isEmpty(name)) {
-			return ResultComm.error("用户名不能为空");
+			return ResultUtil.error("用户名不能为空");
 		}
 
 		if (StringUtils.isEmpty(password)) {
-			return ResultComm.error("密码不能为空");
+			return ResultUtil.error("密码不能为空");
 		}
 
 		User u = userMapper.selectByUserName(name);
 		if (u == null) {
 			userMapper.insert(u);
-			return ResultComm.success();
+			return ResultUtil.success();
 		} else {
-			return ResultComm.error("该用户名已存在");
+			return ResultUtil.error("该用户名已存在");
 		}
 	}
 
@@ -111,6 +111,6 @@ public class UserServiceImpl implements UserService {
 
 		jedis.set(id, "");
 
-		return ResultComm.success();
+		return ResultUtil.success();
 	}
 }

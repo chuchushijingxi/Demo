@@ -5,7 +5,7 @@ import com.Demo.mapper.quartz.JobConfigMapper;
 import com.Demo.pojo.Result;
 import com.Demo.pojo.quartz.JobConfig;
 import com.Demo.quartz.runner.QuartzManager;
-import com.Demo.util.comm.ResultComm;
+import com.Demo.util.comm.ResultUtil;
 import com.Demo.util.quartz.JobConfigeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.quartz.SchedulerFactoryBean;
@@ -51,7 +51,7 @@ public class JobConfigServiceImpl implements JobConfigService {
 		//移除任务
 		JobConfig jobConfig = jobConfigMapper.getJobsByPrimaryKey(taskID);
 		QuartzManager.removeJob(schedulerFactoryBean, jobConfig.getFullEntity(), jobConfig.getGroupName(), jobConfig.getFullEntity(), jobConfig.getGroupName());
-		return ResultComm.success();
+		return ResultUtil.success();
 	}
 
 
@@ -71,7 +71,7 @@ public class JobConfigServiceImpl implements JobConfigService {
 		if (jobConfig.getCronTime() == null) {
 			QuartzManager.addJob(schedulerFactoryBean, jobConfig.getFullEntity(), jobConfig.getGroupName(), jobConfig.getFullEntity(), jobConfig.getGroupName(), jobConfig.getCronTime(), taskClass);
 		}
-		return ResultComm.success();
+		return ResultUtil.success();
 	}
 
 	/**
@@ -94,7 +94,7 @@ public class JobConfigServiceImpl implements JobConfigService {
 			//修改定时任务
 			QuartzManager.mdfJobTime(schedulerFactoryBean, jobConfig.getFullEntity(), jobConfig.getGroupName(), cron);
 		}
-		return ResultComm.success();
+		return ResultUtil.success();
 
 	}
 
@@ -104,7 +104,7 @@ public class JobConfigServiceImpl implements JobConfigService {
 
 		QuartzManager.doJob(schedulerFactoryBean, jobConfig.getFullEntity(), jobConfig.getGroupName());
 
-		return ResultComm.success();
+		return ResultUtil.success();
 	}
 
 	@Override
@@ -112,7 +112,7 @@ public class JobConfigServiceImpl implements JobConfigService {
 		JobConfig oldJobConfig = jobConfigMapper.getJobsByPrimaryKey(jobConfigID);
 
 		if (oldJobConfig == null) {
-			return ResultComm.error(Constant.JSON_STATUS_COTHERERR, "无此任务");
+			return ResultUtil.error(Constant.JSON_STATUS_COTHERERR, "无此任务");
 		}
 
 		JobConfig newJobConfig = jobConfigMapper.getJobsByPrimaryKey(jobConfigID);
@@ -123,7 +123,7 @@ public class JobConfigServiceImpl implements JobConfigService {
 
 		QuartzManager.mdfJobTime(schedulerFactoryBean, newJobConfig.getFullEntity(), newJobConfig.getGroupName(), newJobConfig.getCronTime());
 
-		return ResultComm.success();
+		return ResultUtil.success();
 	}
 
 	@Override
@@ -131,14 +131,14 @@ public class JobConfigServiceImpl implements JobConfigService {
 		JobConfig jobConfig = jobConfigMapper.getJobsByPrimaryKey(jobConfigID);
 
 		if (jobConfig == null) {
-			return ResultComm.error(Constant.JSON_STATUS_COTHERERR, "无此任务");
+			return ResultUtil.error(Constant.JSON_STATUS_COTHERERR, "无此任务");
 		}
 
 		QuartzManager.removeJob(schedulerFactoryBean, jobConfig.getFullEntity(), jobConfig.getGroupName(), jobConfig.getFullEntity(), jobConfig.getGroupName());
 
 		jobConfigMapper.updateStatus(jobConfigID, Constant.JOB_STATUS_PAUSE);
 
-		return ResultComm.success();
+		return ResultUtil.success();
 	}
 
 	@Override
@@ -146,19 +146,19 @@ public class JobConfigServiceImpl implements JobConfigService {
 		JobConfig jobConfig = jobConfigMapper.getJobsByPrimaryKey(jobConfigID);
 
 		if (jobConfig == null) {
-			return ResultComm.error(Constant.JSON_STATUS_COTHERERR, "无此任务");
+			return ResultUtil.error(Constant.JSON_STATUS_COTHERERR, "无此任务");
 		}
 
 		QuartzManager.addJob(schedulerFactoryBean, jobConfig.getFullEntity(), jobConfig.getGroupName(), jobConfig.getFullEntity(), jobConfig.getGroupName(), jobConfig.getCronTime(), Class.forName(jobConfig.getFullEntity()));
 
 		jobConfigMapper.updateStatus(jobConfigID, Constant.JOB_STATUS_COM);
 
-		return ResultComm.success();
+		return ResultUtil.success();
 	}
 
 	@Override
 	public Result getJobConfigByThirdID(String thirdID) {
-		return ResultComm.success(jobConfigMapper.getJobConfigByThirdID(thirdID));
+		return ResultUtil.success(jobConfigMapper.getJobConfigByThirdID(thirdID));
 	}
 
 

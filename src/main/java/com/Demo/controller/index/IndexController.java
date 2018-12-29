@@ -3,7 +3,7 @@ package com.Demo.controller.index;
 import com.Demo.pojo.Result;
 import com.Demo.pojo.user.User;
 import com.Demo.service.user.UserService;
-import com.Demo.util.comm.ResultComm;
+import com.Demo.util.comm.ResultUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -52,7 +52,7 @@ public class IndexController {
 	@RequestMapping("/test1")
 	@ResponseBody
 	public Result test1() {
-		return ResultComm.success();
+		return ResultUtil.success();
 	}
 
 	@RequestMapping("/test2")
