@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.example.mapper.quartz.JobConfigMapper">
-    <resultMap id="baseMap" type="com.example.pojo.quartz.JobConfig">
+<mapper namespace="com.Demo.mapper.quartz.JobConfigMapper">
+    <resultMap id="baseMap" type="com.Demo.pojo.quartz.JobConfig">
         <id column="sID" property="ID" jdbcType="NVARCHAR"/>
         <result column="sThirdID" property="thirdID" jdbcType="NVARCHAR"/>
         <result column="sName" property="name" jdbcType="NVARCHAR"/>
@@ -74,7 +74,7 @@
   		where sID = #{ID}
   	</update>
 
-    <insert id="insert" parameterType="com.example.pojo.quartz.JobConfig">
+    <insert id="insert" parameterType="com.Demo.pojo.quartz.JobConfig">
      insert into tJobConfig (sID, sThirdID,
                              sName, sDesc,sFullEntity,sGroupName,sCronTime,dLastTime,nLastNumber,sStatusID,dCreateTime,sCreateUser,dLastUpdateTime)
      values (#{ID},#{thirdID},#{name},#{desc},#{fullEntity},#{groupName},#{cronTime},#{lastTime},#{lastNumber},#{statusID},#{createTime},#{createUser},#{lastUpdateTime})

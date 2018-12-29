@@ -29,7 +29,7 @@
         <!-- 生成model模型，对应的包路径，以及文件存放路径(targetProject)，targetProject可以指定具体的路径,如./src/main/java，
             也可以使用“MAVEN”来自动生成，这样生成的代码会在target/generatord-source目录下 -->
         <!--<javaModelGenerator targetPackage="com.joey.mybaties.test.pojo" targetProject="MAVEN"> -->
-        <javaModelGenerator targetPackage="com.example.pojo"
+        <javaModelGenerator targetPackage="com.Demo.pojo"
                             targetProject="./src/main/java">
             <property name="enableSubPackages" value="true"/>
             <!-- 从数据库返回的值被清理前后的空格 -->
@@ -44,7 +44,7 @@
 
         <!-- 对应的Mapper接口类文件 -->
         <javaClientGenerator type="XMLMAPPER"
-                             targetPackage="com.example.mapper" targetProject="./src/main/java">
+                             targetPackage="com.Demo.mapper" targetProject="./src/main/java">
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
 
@@ -52,8 +52,8 @@
         <!-- 跟随实体类字段名生成Example查询类 -->
         <!-- domainObjectName 生成xml mapper pojo实体类名称前缀 -->
         <table schema="" tableName="user" domainObjectName="User"
-               enableCountByExample="true" enableDeleteByExample="true"
-               enableSelectByExample="true" enableUpdateByExample="true">
+               enableCountByExample="false" enableDeleteByExample="false"
+               enableSelectByExample="false" enableUpdateByExample="false">
             <!-- 驼峰式命名 -->
             <property name="useActualColumnNames" value="true"/>
             <!-- 去掉字段前缀 -->

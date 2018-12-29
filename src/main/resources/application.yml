@@ -24,6 +24,7 @@ mybatis:
   type-aliases-package: com.zmqy.mapper
   mapper-locations: classpath:mapper/**/*.xml
 
+
 audience:
   sub: test
   base64Secret: MDk4ZjZiY2Q0NjIxZDM3M2NhZGU0ZTgzMjYyN2I0ZjY=
@@ -35,4 +36,3 @@ server:
   tomcat:
     uri-encoding: UTF-8
   port: 8888
-
